@@ -114,13 +114,14 @@ async function syncQuotes() {
     const mergedQuotes = mergeQuotes(quotes, serverQuotes);
     quotes = mergedQuotes;
     saveQuotes();
-    notifyUser("Quotes synced with the server!");
+    notifyUser("Quotes synced with server!");
     populateCategories();
     filterQuotes();
   } catch (error) {
     console.error("Failed to sync quotes:", error);
   }
 }
+
 
 function mergeQuotes(local, server) {
   const localTexts = local.map((q) => q.text);
