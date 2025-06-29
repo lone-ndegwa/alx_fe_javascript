@@ -10,12 +10,15 @@ const categoryFilter = document.getElementById("categoryFilter");
 // Populate categories dynamically
 function populateCategories() {
   const categories = ["all", ...new Set(quotes.map(quote => quote.category))];
-  categoryFilter.innerHTML = categories
-    .map(category => `<option value="${category}">${category}</option>`)
-    .join("");
+  categoryFilter.innerHTML = "";
+  categories.forEach(category => {
+    const option = document.createElement("option");
+    option.value = category;
+    option.textContent = category;
+    categoryFilter.appendChild(option);
+  });
   const savedFilter = localStorage.getItem("selectedCategory") || "all";
   categoryFilter.value = savedFilter;
-  filterQuotes();
 }
 
 // Show a random quote
@@ -57,7 +60,15 @@ function saveQuotes() {
 function filterQuotes() {
   const selectedCategory = categoryFilter.value;
   localStorage.setItem("selectedCategory", selectedCategory);
-  showRandomQuote();
+  const filteredQuotes =
+    selectedCategory === "all"
+      ? quotes
+      : quotes.filter(quote => quote.category === selectedCategory);
+  if (filteredQuotes.length === 0) {
+    quoteDisplay.textContent = "No quotes available for this category.";
+  } else {
+    quoteDisplay.textContent = filteredQuotes[0].text;
+  }
 }
 
 // Export quotes to a JSON file
