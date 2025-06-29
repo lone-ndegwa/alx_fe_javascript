@@ -4,7 +4,7 @@ const quotes = [
   { text: "Success is not final, failure is not fatal: It is the courage to continue that counts.", category: "Motivation" }
 ];
 
-function showRandomQuote() {
+function displayRandomQuote() {
   const quoteDisplay = document.getElementById("quoteDisplay");
   const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
   quoteDisplay.textContent = `"${randomQuote.text}" - ${randomQuote.category}`;
@@ -15,11 +15,12 @@ function addQuote() {
   const newQuoteCategory = document.getElementById("newQuoteCategory").value.trim();
   if (newQuoteText && newQuoteCategory) {
     quotes.push({ text: newQuoteText, category: newQuoteCategory });
+    const quoteDisplay = document.getElementById("quoteDisplay");
+    quoteDisplay.textContent = `"${newQuoteText}" - ${newQuoteCategory}`;
     document.getElementById("newQuoteText").value = "";
     document.getElementById("newQuoteCategory").value = "";
-    alert("New quote added!");
   }
 }
 
-document.getElementById("newQuote").addEventListener("click", showRandomQuote);
+document.getElementById("newQuote").addEventListener("click", displayRandomQuote);
 document.getElementById("addQuote").addEventListener("click", addQuote);
